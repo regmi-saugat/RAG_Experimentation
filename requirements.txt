@@ -1,0 +1,11 @@
+numpy
+pandas
+PyMuPDF
+datasets
+transformers
+sentence-transformers
+bitsandbytes==0.43.1
+torch==2.1.2
+spacy==3.7.4
+tqdm
+loguru
