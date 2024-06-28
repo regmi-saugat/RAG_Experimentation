@@ -2,6 +2,7 @@ from sentence_transformers import SentenceTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import torch
 
+from loguru import logger
 
 class RagModel:
     def __init__(
@@ -17,7 +18,7 @@ class RagModel:
         )
         self.device = device
         self.embedding_model = SentenceTransformer(embedding_model_name)
-        print(f" Successfully loaded {embedding_model_name}")
+        logger.info(f"Successfully loaded: {embedding_model_name} embedding model.")
         self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id,
@@ -40,7 +41,7 @@ class RagModel:
           context: {context} """
         base_prompt = base_prompt.format(context=context, query=query)
 
-        dialogue_template = [{"role": "user", "content": base_prompt}]
+        # dialogue_template = [{"role": "user", "content": base_prompt}]
 
         prompt = base_prompt
         return prompt

@@ -1,5 +1,6 @@
 from src.DataLoading import DatasetLoading
 from src.RAGModels import RagModel
+
 import argparse
 import time
 import torch
@@ -27,11 +28,11 @@ def main():
         )
     )
     start_time = time.time()
-    dataset_load = DatasetLoading()(
+    dataset_load = DatasetLoading(
         df_path="text_chunks_and_embeddings_df.csv", device=device
     )
     dataset_load.save_embeddings()
-    rag_model = RagModel()(
+    rag_model = RagModel(
         model_id=model_name,
         embedding_model_name=embedding_model_name,
         use_quantization=use_quantization,
@@ -49,11 +50,12 @@ def main():
         _, samples = dataset_load.retun_faiss_index(query_embeddings)
         prompt = rag_model.create_prompt(samples["sentence_chunk"], query)
 
-        ans = rag_model.generate(prompt)
+        llm_response = rag_model.generate(prompt)
 
-        logger.info(ans)
+        logger.info(llm_response)
         end_time = time.time()
         logger.info(f"Runtime: {round(end_time - start_time, 2)} seconds")
+        return llm_response
 
 
 if __name__ == "__main__":
