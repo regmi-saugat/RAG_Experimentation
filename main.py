@@ -13,7 +13,7 @@ def main():
     logger.info(f"Using {device} as the device")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="google/gemma-2b-it")
+    parser.add_argument("--model_name", type=str, default="microsoft/phi-2")
     parser.add_argument("--encoding_model_name", type=str, default="all-mpnet-base-v2")
     parser.add_argument("--use_quantization", type=bool, default=True)
     args = parser.parse_args()
@@ -29,7 +29,7 @@ def main():
     )
     start_time = time.time()
     dataset_load = DatasetLoading(
-        df_path="text_chunks_and_embeddings_df.csv", device=device
+        df_path="data/chunks_and_embedding.csv", device=device
     )
     dataset_load.save_embeddings()
     rag_model = RagModel(

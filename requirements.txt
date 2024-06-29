@@ -9,3 +9,4 @@ torch==2.1.2
 spacy==3.7.4
 tqdm
 loguru
+faiss-cpu
